@@ -265,6 +265,66 @@
       color: var(--text);
     }
 
+    .insight-grid {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      margin-top: 24px;
+    }
+
+    .insight-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .insight-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.18rem;
+      color: #fff;
+    }
+
+    .insight-card p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .mini-chart {
+      min-height: 320px;
+      width: 100%;
+    }
+
+    .highlight-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin-top: 24px;
+    }
+
+    .highlight-card {
+      padding: 20px 22px;
+      background: rgba(79, 183, 255, 0.08);
+      border: 1px solid rgba(79, 183, 255, 0.16);
+      border-radius: 22px;
+      color: var(--text);
+    }
+
+    .highlight-card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    .highlight-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
     .chart-section > p {
       margin: 0 0 24px;
       color: var(--muted);
@@ -297,12 +357,26 @@
         grid-template-columns: 1fr;
       }
 
-      .grid {
+      .grid,
+      .insight-grid,
+      .highlight-grid {
         grid-template-columns: 1fr;
       }
 
+      .chart-section {
+        padding: 24px 20px;
+      }
+
+      .mini-chart {
+        min-height: 260px;
+      }
+
       #internet-chart {
-        height: 400px;
+        height: 420px;
+      }
+
+      .banner {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -316,7 +390,7 @@
         <p class="subtitle">TÜİK verileriyle hazırlanmış güçlü görselleştirmeler, cinsiyet ve yaş gruplarına göre internet kullanım eğilimleri, sosyal medya etkileşimleri ve bilişim teknolojileri erişimini bir araya getiriyor.</p>
         <div class="actions">
           <a class="button primary" href="internet/dijital_yasam_sankey.html">İnternet Sankey Grafiği</a>
-          <a class="button secondary" href="#cinsiyet-chart">Cinsiyete Göre Analiz</a>
+          <a class="button secondary" href="#poster-insights">Poster Görselleri</a>
         </div>
       </div>
 
@@ -364,26 +438,62 @@
           <span>Cinsiyete Göre Analiz</span>
         </div>
         <p>Poster.ipynb'den alınan cinsiyete dayalı kullanım grafiğini görüntüleyin; erkek ve kızların internet tercihleri arasındaki farklar burada vurgulanıyor.</p>
-        <a href="#cinsiyet-chart">Grafiğe Git →</a>
+        <a href="#poster-insights">Grafiğe Git →</a>
       </article>
+    </section>
+
+    <section class="chart-section" id="poster-insights">
+      <h2>Poster.ipynb'den Öne Çıkan 4 Analiz</h2>
+      <p>Poster çalışmasındaki ilk dört görselleştirme burada modern bir düzenle sunuluyor. Grafikler, TÜİK verilerine dayanan gençlerin internet kullanım amaçları ve cinsiyet bazlı farklarını açıkça ortaya koyuyor.</p>
+      <div class="insight-grid">
+        <article class="insight-card">
+          <h3>Gençlerin İnternet Kullanım Amaçları</h3>
+          <p>Mesajlaşma, sosyal medya ve sesli/görüntülü arama gençler arasında internet kullanımında öne çıkıyor.</p>
+          <div id="usage-purpose-chart" class="mini-chart"></div>
+        </article>
+
+        <article class="insight-card">
+          <h3>Cinsiyet Bazlı Dijital Profil</h3>
+          <p>Radar grafiği, erkek ve kız gençlerin temel internet kullanım alanlarındaki benzerlikleri ve farklılıkları gösterir.</p>
+          <div id="radar-chart" class="mini-chart"></div>
+        </article>
+
+        <article class="insight-card">
+          <h3>Gençlerin Dijital Alışkanlık Sıralaması</h3>
+          <p>Kullanım oranları en yüksek aktiviteler net bir hiyerarşi içinde listeleniyor.</p>
+          <div id="digital-habits-chart" class="mini-chart"></div>
+        </article>
+
+        <article class="insight-card">
+          <h3>Dijital Uçurum: Erkek vs Kadın</h3>
+          <p>Cinsiyetler arasındaki yüzde puan farkları, hangi alanlarda hangi grubun öne çıktığını ortaya koyar.</p>
+          <div id="gender-gap-chart" class="mini-chart"></div>
+        </article>
+      </div>
+      <div class="highlight-grid">
+        <article class="highlight-card">
+          <strong>En yüksek kullanım</strong>
+          <p>Gençlerde mesajlaşma ve sosyal medya aktiviteleri %95’in üzerinde yoğunlaşmıştır.</p>
+        </article>
+        <article class="highlight-card">
+          <strong>Cinsiyet karşılaştırması</strong>
+          <p>Erkekler sosyal medya ve e-posta kullanımında, kadınlar ise mesajlaşma ve bilgi aramada nispeten daha yüksek oranlı.</p>
+        </article>
+        <article class="highlight-card">
+          <strong>Sağlık ve bankacılık</strong>
+          <p>İnternet bankacılığı ve sağlık bilgi arama gençlerin önemli dijital kullanım alanları arasında yer alıyor.</p>
+        </article>
+        <article class="highlight-card">
+          <strong>Veri odaklı sunum</strong>
+          <p>Bu alanlar TÜİK 2024 Youth in Statistics verileriyle destekleniyor ve grafiklerde net bir şekilde görülüyor.</p>
+        </article>
+      </div>
     </section>
 
     <section class="chart-section">
       <h2>Yaş Grubuna Göre Platform Akışı</h2>
       <p>Sankey diyagramı: Türkiye'deki yaş gruplarının internetten sosyal medya platformlarına doğru dijital akışını gösterir.</p>
       <div id="internet-chart"></div>
-    </section>
-
-    <section class="chart-section" id="cinsiyet-chart">
-      <h2>Cinsiyete Göre İnternet Kullanım Profili</h2>
-      <p>Poster.ipynb'den alınan radar grafiği: cinsiyete göre internet kullanım amaçlarını ve tercihlerini karşılaştırır.</p>
-      <div id="radar-chart"></div>
-    </section>
-
-    <section class="chart-section">
-      <h2>Çocukların İnternet ve Sosyal Medya Akışı</h2>
-      <p>Sankey diyagramı: Çocukların yaş gruplarına göre internet, sosyal medya ve telefon kullanımındaki dijital akışı gösterir.</p>
-      <div id="cocuk-chart"></div>
     </section>
 
     <section class="banner">
@@ -403,7 +513,7 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const data = [{
+      const sankeyData = [{
         type: "sankey",
         link: {
           color: "rgba(1,100,128,0.2)",
@@ -414,110 +524,132 @@
         node: {
           color: ["#016480", "#016480", "#016480", "#D4A574", "#D4A574", "#D4A574", "#D4A574", "#D4A574"],
           label: ["16-24", "25-44", "45+", "Instagram", "TikTok", "X", "Facebook", "WhatsApp"],
-          line: {
-            color: "black",
-            width: 0.5
-          },
+          line: { color: "black", width: 0.5 },
           pad: 15,
           thickness: 20
         }
       }];
 
-      const layout = {
-        title: {
-          text: "",
-          font: { size: 14 }
-        },
+      const sankeyLayout = {
+        title: { text: "", font: { size: 14 } },
         font: { size: 12, family: "Inter, sans-serif" },
         plot_bgcolor: "rgba(0,0,0,0)",
         paper_bgcolor: "rgba(0,0,0,0)",
         margin: { l: 40, r: 40, t: 40, b: 40 },
-        height: 500
+        height: 520
+      };
+      Plotly.newPlot('internet-chart', sankeyData, sankeyLayout, { responsive: true, displayModeBar: true });
+
+      const usageCategories = [
+        'Mesajlaşma',
+        'Sosyal medya',
+        'Sesli/görüntülü arama',
+        'Video içerik paylaşımı',
+        'Müzik dinleme',
+        'Mal ve hizmet arama',
+        'İnternet bankacılığı',
+        'Sağlıkla ilgili bilgi arama'
+      ];
+      const usageValues = [98.5, 95.7, 95.3, 89.8, 86.3, 85.6, 66.3, 65.9];
+
+      const usagePurpose = {
+        type: 'bar',
+        x: usageValues,
+        y: usageCategories,
+        orientation: 'h',
+        marker: { color: '#69c5ff', line: { color: '#ffffff22', width: 1 } },
+        hovertemplate: '%{y}: %{x}%%<extra></extra>'
       };
 
-      const config = { responsive: true, displayModeBar: true };
+      const usageLayout = {
+        margin: { l: 160, r: 20, t: 30, b: 30 },
+        xaxis: { range: [0, 100], title: { text: 'Kullanım Oranı (%)', font: { size: 12 } } },
+        yaxis: { automargin: true },
+        font: { family: 'Inter, sans-serif', size: 12 },
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        height: 340,
+        showlegend: false
+      };
+      Plotly.newPlot('usage-purpose-chart', [usagePurpose], usageLayout, { responsive: true, displayModeBar: false });
 
-      Plotly.newPlot('internet-chart', data, layout, config);
-    });
-
-    // Radar Chart
-    document.addEventListener('DOMContentLoaded', function() {
       const radarData = [{
         type: 'scatterpolar',
         r: [59.1, 94.8, 97.7, 98.7, 84.2],
-        theta: ['e-posta gönderme/ alma', 'İnternet üzerinden sesli veya görüntülü arama yapma', 'Sosyal medya üzerinde profil oluşturma, mesaj gönderme', 'Mesajlaşma', 'Mal ve hizmetler hakkında bilgi arama'],
+        theta: ['e-posta gönderme/ alma', 'Sesli/görüntülü arama', 'Sosyal medya profil oluşturma', 'Mesajlaşma', 'Mal ve hizmet arama'],
         fill: 'toself',
         name: 'Erkek',
         line: { color: '#1f77b4' }
       }, {
         type: 'scatterpolar',
         r: [56.8, 95.9, 93.5, 98.3, 87.2],
-        theta: ['e-posta gönderme/ alma', 'İnternet üzerinden sesli veya görüntülü arama yapma', 'Sosyal medya üzerinde profil oluşturma, mesaj gönderme', 'Mesajlaşma', 'Mal ve hizmetler hakkında bilgi arama'],
+        theta: ['e-posta gönderme/ alma', 'Sesli/görüntülü arama', 'Sosyal medya profil oluşturma', 'Mesajlaşma', 'Mal ve hizmet arama'],
         fill: 'toself',
         name: 'Kadın',
         line: { color: '#e377c2' }
       }];
 
       const radarLayout = {
-        polar: {
-          radialaxis: {
-            visible: true,
-            range: [0, 100]
-          }
-        },
+        polar: { radialaxis: { visible: true, range: [0, 100], tickfont: { size: 10 } } },
         showlegend: true,
-        title: '',
-        font: { size: 12, family: "Inter, sans-serif" },
-        plot_bgcolor: "rgba(0,0,0,0)",
-        paper_bgcolor: "rgba(0,0,0,0)",
-        margin: { l: 40, r: 40, t: 40, b: 40 },
-        height: 500
+        font: { size: 12, family: 'Inter, sans-serif' },
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        margin: { l: 40, r: 40, t: 30, b: 30 },
+        height: 340
+      };
+      Plotly.newPlot('radar-chart', radarData, radarLayout, { responsive: true, displayModeBar: false });
+
+      const habitCategories = ['Mesajlaşma', 'Sosyal medya', 'Sesli/görüntülü arama', 'Video içerik paylaşımı', 'Müzik dinleme', 'Mal ve hizmet arama', 'İnternet bankacılığı', 'Sağlıkla ilgili bilgi arama'];
+      const habitValues = [98.5, 95.7, 95.3, 89.8, 86.3, 85.6, 66.3, 65.9];
+
+      const habitsTrace = {
+        type: 'scatter',
+        x: habitCategories,
+        y: habitValues,
+        mode: 'lines+markers',
+        line: { color: '#4fb7ff', width: 3 },
+        marker: { color: '#a2e1ff', size: 10 },
+        hovertemplate: '%{x}: %{y}%%<extra></extra>'
       };
 
-      const radarConfig = { responsive: true, displayModeBar: true };
+      const habitsLayout = {
+        xaxis: { tickangle: -45, automargin: true },
+        yaxis: { range: [0, 100], title: { text: 'Kullanım Oranı (%)', font: { size: 12 } } },
+        font: { family: 'Inter, sans-serif', size: 12 },
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        margin: { l: 40, r: 20, t: 30, b: 90 },
+        height: 340,
+        showlegend: false
+      };
+      Plotly.newPlot('digital-habits-chart', [habitsTrace], habitsLayout, { responsive: true, displayModeBar: false });
 
-      Plotly.newPlot('radar-chart', radarData, radarLayout, radarConfig);
-    });
+      const gapCategories = ['e-posta gönderme/ alma', 'Sesli/görüntülü arama', 'Sosyal medya', 'Mesajlaşma', 'Mal ve hizmet arama'];
+      const gapValues = [2.3, -1.1, 4.2, 0.4, -3.0];
+      const gapColors = gapValues.map(value => value >= 0 ? '#1f77b4' : '#e377c2');
 
-    // Çocuk Sankey Chart
-    document.addEventListener('DOMContentLoaded', function() {
-      const cocukData = [{
-        type: "sankey",
-        link: {
-          color: "rgba(1,100,128,0.2)",
-          source: [0, 0, 1, 1, 1],
-          target: [2, 4, 2, 3, 4],
-          value: [87, 66, 91, 66, 76]
-        },
-        node: {
-          color: ["#016480", "#016480", "#D4A574", "#D4A574", "#D4A574"],
-          label: ["6-10 Yaş", "11-15 Yaş", "İnternet", "Sosyal Medya", "Telefon"],
-          line: {
-            color: "black",
-            width: 0.5
-          },
-          pad: 15,
-          thickness: 20
-        }
-      }];
-
-      const cocukLayout = {
-        title: {
-          text: "",
-          font: { size: 14 }
-        },
-        font: { size: 12, family: "Inter, sans-serif" },
-        plot_bgcolor: "rgba(0,0,0,0)",
-        paper_bgcolor: "rgba(0,0,0,0)",
-        margin: { l: 40, r: 40, t: 40, b: 40 },
-        height: 500
+      const gapTrace = {
+        type: 'bar',
+        x: gapValues,
+        y: gapCategories,
+        orientation: 'h',
+        marker: { color: gapColors },
+        hovertemplate: '%{y}: %{x} puan<extra></extra>'
       };
 
-      const cocukConfig = { responsive: true, displayModeBar: true };
-
-      Plotly.newPlot('cocuk-chart', cocukData, cocukLayout, cocukConfig);
+      const gapLayout = {
+        xaxis: { title: { text: 'Erkek - Kadın Arasındaki Fark (puan)', font: { size: 12 } }, zeroline: true, zerolinecolor: '#ffffff44' },
+        yaxis: { automargin: true },
+        font: { family: 'Inter, sans-serif', size: 12 },
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        margin: { l: 150, r: 20, t: 30, b: 30 },
+        height: 340,
+        showlegend: false
+      };
+      Plotly.newPlot('gender-gap-chart', [gapTrace], gapLayout, { responsive: true, displayModeBar: false });
     });
   </script>
 </body>
 </html>
-                
