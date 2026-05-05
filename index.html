@@ -172,7 +172,7 @@
       display: grid;
       gap: 22px;
       margin-top: 48px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
 
     .card {
@@ -250,6 +250,33 @@
       font-size: 0.95rem;
     }
 
+    .chart-section {
+      margin-top: 50px;
+      padding: 32px 28px;
+      border-radius: var(--radius);
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .chart-section h2 {
+      margin: 0 0 8px;
+      font-size: 1.5rem;
+      color: var(--text);
+    }
+
+    .chart-section > p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    #internet-chart {
+      width: 100%;
+      height: 500px;
+      min-height: 500px;
+    }
+
     .footer {
       margin-top: 62px;
       display: flex;
@@ -272,6 +299,10 @@
 
       .grid {
         grid-template-columns: 1fr;
+      }
+
+      #internet-chart {
+        height: 400px;
       }
     }
   </style>
@@ -337,6 +368,24 @@
       </article>
     </section>
 
+    <section class="chart-section">
+      <h2>Yaş Grubundan Platforma Dijital Akış</h2>
+      <p>İnteraktif Sankey diyagramı: Türkiye'deki farklı yaş gruplarının sosyal medya platformlarına dijital yönelimlerini görselleştiriyor. Akışları araştırmak için üzerine gelin.</p>
+      <div id="internet-chart"></div>
+    </section>
+
+    <section class="chart-section">
+      <h2>Gençlerin İnternet Kullanım Profili: Erkek vs. Kadın</h2>
+      <p>Radar grafiği: Genç erkek ve kızların interneti farklı amaçlar için kullanım oranlarını karşılaştırıyor.</p>
+      <div id="radar-chart"></div>
+    </section>
+
+    <section class="chart-section">
+      <h2>Çocukların Dijital Dünyaya Akışı</h2>
+      <p>Sankey diyagramı: Çocukların yaş gruplarına göre internet ve sosyal medya kullanımını gösteriyor.</p>
+      <div id="cocuk-chart"></div>
+    </section>
+
     <section class="banner">
       <div>
         <strong>Proje hakkında hızlı bilgi</strong>
@@ -350,5 +399,125 @@
       <div><a href="https://tuanna-web.github.io/Turkiye-de-Dijital-Yasam/">GitHub Pages</a> • <a href="https://github.com/tuanna-web/Turkiye-de-Dijital-Yasam">Repo</a></div>
     </footer>
   </main>
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const data = [{
+        type: "sankey",
+        link: {
+          color: "rgba(1,100,128,0.2)",
+          source: [0, 0, 0, 1, 1, 2, 2],
+          target: [3, 4, 5, 3, 6, 6, 7],
+          value: [45, 35, 20, 40, 20, 50, 40]
+        },
+        node: {
+          color: ["#016480", "#016480", "#016480", "#D4A574", "#D4A574", "#D4A574", "#D4A574", "#D4A574"],
+          label: ["16-24", "25-44", "45+", "Instagram", "TikTok", "X", "Facebook", "WhatsApp"],
+          line: {
+            color: "black",
+            width: 0.5
+          },
+          pad: 15,
+          thickness: 20
+        }
+      }];
+
+      const layout = {
+        title: {
+          text: "",
+          font: { size: 14 }
+        },
+        font: { size: 12, family: "Inter, sans-serif" },
+        plot_bgcolor: "rgba(0,0,0,0)",
+        paper_bgcolor: "rgba(0,0,0,0)",
+        margin: { l: 40, r: 40, t: 40, b: 40 },
+        height: 500
+      };
+
+      const config = { responsive: true, displayModeBar: true };
+
+      Plotly.newPlot('internet-chart', data, layout, config);
+    });
+
+    // Radar Chart
+    document.addEventListener('DOMContentLoaded', function() {
+      const radarData = [{
+        type: 'scatterpolar',
+        r: [59.1, 94.8, 97.7, 98.7, 84.2],
+        theta: ['e-posta gönderme/ alma', 'İnternet üzerinden sesli veya görüntülü arama yapma', 'Sosyal medya üzerinde profil oluşturma, mesaj gönderme', 'Mesajlaşma', 'Mal ve hizmetler hakkında bilgi arama'],
+        fill: 'toself',
+        name: 'Erkek',
+        line: { color: '#1f77b4' }
+      }, {
+        type: 'scatterpolar',
+        r: [56.8, 95.9, 93.5, 98.3, 87.2],
+        theta: ['e-posta gönderme/ alma', 'İnternet üzerinden sesli veya görüntülü arama yapma', 'Sosyal medya üzerinde profil oluşturma, mesaj gönderme', 'Mesajlaşma', 'Mal ve hizmetler hakkında bilgi arama'],
+        fill: 'toself',
+        name: 'Kadın',
+        line: { color: '#e377c2' }
+      }];
+
+      const radarLayout = {
+        polar: {
+          radialaxis: {
+            visible: true,
+            range: [0, 100]
+          }
+        },
+        showlegend: true,
+        title: '',
+        font: { size: 12, family: "Inter, sans-serif" },
+        plot_bgcolor: "rgba(0,0,0,0)",
+        paper_bgcolor: "rgba(0,0,0,0)",
+        margin: { l: 40, r: 40, t: 40, b: 40 },
+        height: 500
+      };
+
+      const radarConfig = { responsive: true, displayModeBar: true };
+
+      Plotly.newPlot('radar-chart', radarData, radarLayout, radarConfig);
+    });
+
+    // Çocuk Sankey Chart
+    document.addEventListener('DOMContentLoaded', function() {
+      const cocukData = [{
+        type: "sankey",
+        link: {
+          color: "rgba(1,100,128,0.2)",
+          source: [0, 0, 1, 1, 1],
+          target: [2, 4, 2, 3, 4],
+          value: [87, 66, 91, 66, 76]
+        },
+        node: {
+          color: ["#016480", "#016480", "#D4A574", "#D4A574", "#D4A574"],
+          label: ["6-10 Yaş", "11-15 Yaş", "İnternet", "Sosyal Medya", "Telefon"],
+          line: {
+            color: "black",
+            width: 0.5
+          },
+          pad: 15,
+          thickness: 20
+        }
+      }];
+
+      const cocukLayout = {
+        title: {
+          text: "",
+          font: { size: 14 }
+        },
+        font: { size: 12, family: "Inter, sans-serif" },
+        plot_bgcolor: "rgba(0,0,0,0)",
+        paper_bgcolor: "rgba(0,0,0,0)",
+        margin: { l: 40, r: 40, t: 40, b: 40 },
+        height: 500
+      };
+
+      const cocukConfig = { responsive: true, displayModeBar: true };
+
+      Plotly.newPlot('cocuk-chart', cocukData, cocukLayout, cocukConfig);
+    });
+  </script>
 </body>
 </html>
+                
