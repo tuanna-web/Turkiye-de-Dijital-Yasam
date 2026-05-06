@@ -483,7 +483,6 @@
         <button type="button" class="chart-tab" data-target="usage-purpose">Kullanım Amaçları</button>
         <button type="button" class="chart-tab" data-target="digital-habits">Dijital Alışkanlıklar</button>
         <button type="button" class="chart-tab" data-target="usage-trend">Kullanım Artışı</button>
-        <button type="button" class="chart-tab" data-target="frequency-dist">Kullanım Sıklığı</button>
         <button type="button" class="chart-tab" data-target="time-usage">Günlük Süre Dağılımı</button>
       </div>
       <div class="chart-viewer" id="internet-active-chart">
@@ -497,6 +496,8 @@
       <div class="chart-tabs">
         <button type="button" class="chart-tab" data-target="radar-profile">Radar Profili</button>
         <button type="button" class="chart-tab" data-target="gender-gap">Dijital Uçurum</button>
+        <button type="button" class="chart-tab" data-target="digital-habits-2">Dijital Alışkanlıklar</button>
+        <button type="button" class="chart-tab" data-target="age-gender-comparison">Yaş & Cinsiyet</button>
       </div>
       <div class="chart-viewer" id="gender-active-chart">
         <div class="chart-placeholder">Bir cinsiyet analizi grafiği seçmek için yukarıdaki düğmelerden birine tıklayın.</div>
@@ -521,7 +522,7 @@
         </article>
         <article class="highlight-card">
           <strong>İnternet kullanımı</strong>
-          <p>'Kullanım amaçları', 'kullanım artışı' ve 'kullanım sıklığı' grafikleri internet bölümünde toplandı.</p>
+          <p>'Kullanım amaçları', 'kullanım artışı' ve 'Dijital Alışkanlıklar' görseli internet bölümünde bir araya getirildi.</p>
         </article>
         <article class="highlight-card">
           <strong>Cinsiyet karşılaştırması</strong>
@@ -556,6 +557,11 @@
       const container = document.getElementById(containerId);
       container.innerHTML = '';
       Plotly.newPlot(containerId, traceData, layout, { responsive: true, displayModeBar: false });
+    }
+
+    function renderImage(containerId, src, alt) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '<div class="chart-placeholder"><img src="' + src + '" alt="' + alt + '" style="max-width:100%;height:auto;border-radius:20px;box-shadow:0 18px 40px rgba(0,0,0,0.18);" /></div>';
     }
 
     function getInternetChart(type) {
@@ -609,20 +615,9 @@
 
       if (type === 'digital-habits') {
         return {
-          data: [{
-            type: 'scatter',
-            x: ['Mesajlaşma', 'Sosyal medya', 'Sesli/görüntülü arama', 'Video içerik paylaşımı', 'Müzik dinleme', 'Mal ve hizmet arama', 'İnternet bankacılığı', 'Sağlıkla ilgili bilgi arama'],
-            y: [98.5, 95.7, 95.3, 89.8, 86.3, 85.6, 66.3, 65.9],
-            mode: 'lines+markers',
-            line: { color: '#4fb7ff', width: 3 },
-            marker: { color: '#a2e1ff', size: 10 },
-            hovertemplate: '%{x}: %{y}%%<extra></extra>'
-          }],
-          layout: Object.assign({}, sharedLayout, {
-            title: { text: 'Gençlerin Dijital Alışkanlık Sıralaması', font: { size: 18 } },
-            xaxis: { tickangle: -45, automargin: true },
-            yaxis: { range: [0, 100], title: { text: 'Kullanım Oranı (%)', font: { size: 12 } } }
-          })
+          isStatic: true,
+          staticImage: 'internet/dijital_alikanliklarimiz.png',
+          title: 'Dijital Alışkanlıklar'
         };
       }
 
@@ -652,32 +647,6 @@
             title: { text: 'İnternet Kullanım Oranındaki Yıllık Artış', font: { size: 18 } },
             yaxis: { range: [80, 100], title: { text: 'Oran (%)', font: { size: 12 } } },
             legend: { orientation: 'h', y: -0.18 }
-          })
-        };
-      }
-
-      if (type === 'frequency-dist') {
-        return {
-          data: [
-            {
-              type: 'bar',
-              x: ['Son 3 Ay', '3 Ay - 1 Yıl', '1 Yıldan Fazla'],
-              y: [92.5, 0.6, 0.6],
-              name: 'Erkek',
-              marker: { color: '#1f77b4' }
-            },
-            {
-              type: 'bar',
-              x: ['Son 3 Ay', '3 Ay - 1 Yıl', '1 Yıldan Fazla'],
-              y: [87.0, 0.7, 0.5],
-              name: 'Kadın',
-              marker: { color: '#e377c2' }
-            }
-          ],
-          layout: Object.assign({}, sharedLayout, {
-            title: { text: 'İnternet Kullanım Sıklığı Dağılımı', font: { size: 18 } },
-            barmode: 'group',
-            yaxis: { range: [0, 100], title: { text: 'Oran (%)', font: { size: 12 } } }
           })
         };
       }
@@ -777,6 +746,22 @@
         };
       }
 
+      if (type === 'digital-habits-2') {
+        return {
+          isStatic: true,
+          staticImage: 'cinsiyet/dijital_alikanliklarimiz.png',
+          title: 'Cinsiyet Bazlı Dijital Alışkanlıklar'
+        };
+      }
+
+      if (type === 'age-gender-comparison') {
+        return {
+          isStatic: true,
+          staticImage: 'cinsiyet/dijital_alikanliklarimiz2.png',
+          title: 'Yaş ve Cinsiyete Göre Kıyaslama'
+        };
+      }
+
       return null;
     }
 
@@ -788,7 +773,13 @@
         button.addEventListener('click', function() {
           setActiveTab(internetSection, this.dataset.target);
           const chart = getInternetChart(this.dataset.target);
-          if (chart) renderPlot('internet-active-chart', chart.data, chart.layout);
+          if (chart) {
+            if (chart.isStatic) {
+              renderImage('internet-active-chart', chart.staticImage, chart.title);
+            } else {
+              renderPlot('internet-active-chart', chart.data, chart.layout);
+            }
+          }
         });
       });
 
@@ -796,7 +787,13 @@
         button.addEventListener('click', function() {
           setActiveTab(genderSection, this.dataset.target);
           const chart = getGenderChart(this.dataset.target);
-          if (chart) renderPlot('gender-active-chart', chart.data, chart.layout);
+          if (chart) {
+            if (chart.isStatic) {
+              renderImage('gender-active-chart', chart.staticImage, chart.title);
+            } else {
+              renderPlot('gender-active-chart', chart.data, chart.layout);
+            }
+          }
         });
       });
 
