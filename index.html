@@ -12,8 +12,8 @@
       --panel-soft: rgba(17, 40, 69, 0.72);
       --accent: #4fb7ff;
       --accent-soft: #69c5ff;
-      --text: #eef2f7;
-      --muted: #a8b7cd;
+      --text: #ffffff;
+      --muted: #ffffff;
       --radius: 24px;
       --shadow: 0 28px 80px rgba(0, 0, 0, 0.25);
     }
@@ -484,6 +484,9 @@
         <button type="button" class="chart-tab" data-target="digital-habits">Dijital Alışkanlıklar</button>
         <button type="button" class="chart-tab" data-target="usage-trend">Kullanım Artışı</button>
         <button type="button" class="chart-tab" data-target="time-usage">Günlük Süre Dağılımı</button>
+        <button type="button" class="chart-tab" data-target="usage-purpose-img">Kullanım Amaçları Görsel</button>
+        <button type="button" class="chart-tab" data-target="usage-trend-img">Kullanım Artışı Görsel</button>
+        <button type="button" class="chart-tab" data-target="time-usage-img">Günlük Süre Görsel</button>
       </div>
       <div class="chart-viewer" id="internet-active-chart">
         <div class="chart-placeholder">Bir internet kullanımı grafiği seçmek için yukarıdaki düğmelerden birine tıklayın.</div>
@@ -497,7 +500,6 @@
         <button type="button" class="chart-tab" data-target="radar-profile">Radar Profili</button>
         <button type="button" class="chart-tab" data-target="gender-gap">Dijital Uçurum</button>
         <button type="button" class="chart-tab" data-target="digital-habits-2">Dijital Alışkanlıklar</button>
-        <button type="button" class="chart-tab" data-target="age-gender-comparison">Yaş & Cinsiyet</button>
       </div>
       <div class="chart-viewer" id="gender-active-chart">
         <div class="chart-placeholder">Bir cinsiyet analizi grafiği seçmek için yukarıdaki düğmelerden birine tıklayın.</div>
@@ -616,7 +618,7 @@
       if (type === 'digital-habits') {
         return {
           isStatic: true,
-          staticImage: 'internet/dijital_alikanliklarimiz.png',
+          staticImage: 'internet/dijital_aliskanlik.png',
           title: 'Dijital Alışkanlıklar'
         };
       }
@@ -688,6 +690,30 @@
         };
       }
 
+      if (type === 'usage-purpose-img') {
+        return {
+          isStatic: true,
+          staticImage: 'internet/1_kullanim_amaci.png',
+          title: 'Kullanım Amaçları Görsel'
+        };
+      }
+
+      if (type === 'usage-trend-img') {
+        return {
+          isStatic: true,
+          staticImage: 'internet/kullanim_artis_slope.png',
+          title: 'Kullanım Artışı Görsel'
+        };
+      }
+
+      if (type === 'time-usage-img') {
+        return {
+          isStatic: true,
+          staticImage: 'internet/kullanim_sikligi_bar.png',
+          title: 'Günlük Süre Dağılımı Görsel'
+        };
+      }
+
       return null;
     }
 
@@ -751,14 +777,6 @@
           isStatic: true,
           staticImage: 'cinsiyet/dijital_alikanliklarimiz.png',
           title: 'Cinsiyet Bazlı Dijital Alışkanlıklar'
-        };
-      }
-
-      if (type === 'age-gender-comparison') {
-        return {
-          isStatic: true,
-          staticImage: 'cinsiyet/dijital_alikanliklarimiz2.png',
-          title: 'Yaş ve Cinsiyete Göre Kıyaslama'
         };
       }
 
